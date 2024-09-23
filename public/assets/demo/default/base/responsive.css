@@ -1,0 +1,318 @@
+@media screen and (min-width:  1025px) {
+	.search-devices-input {
+		width: 260px;
+	}
+	.m-aside-left--minimize .m-aside-menu .m-menu__nav {
+		padding-left: 6px;
+		padding-right: 6px;
+	}
+
+	/*27-01-2023*/
+	.m-aside-left--minimize .m-aside-left .sidebar_bottom_area .sidebar_bottom_area_link a figcaption {
+		display: none;
+	}
+	.m-aside-left--minimize .m-aside-left .sidebar_bottom_area .sidebar_bottom_area_link a {
+		padding: 12px;
+	}
+	.m-aside-left--minimize .m-aside-left .sidebar_bottom_area .sidebar_bottom_area_link a figure {
+		width: 100%;
+		margin: 0;
+		text-align: center;
+	}
+}
+/*ends min-width 1025px*/
+
+
+@media screen and (max-width:  1024px) {
+
+	.m-aside-menu .m-menu__nav .m-menu__item.sidebar_logo {
+		display: block;
+		z-index: 10;
+	}
+
+	.btn-companyselect {
+		text-align: left;
+	}	
+
+	/*updating header*/
+	.m-brand.custom-m-brand-wrap .m-brand__logo {
+		display: none !important;
+	}
+	.m-header-menu.m-header-menu-custom {
+		position: absolute;
+		top: 0;
+		left: 80px;
+		display: flex;
+		align-items: center;
+		height: 60px;
+		z-index: 2;
+	}
+	#m_aside_header_topbar_mobile_toggle  {
+		padding-top: 2px;
+	}
+	.m-header-menu.m-header-menu-custom .btn-companyselect {
+		padding-top: 6px;
+		padding-bottom: 6px;
+		min-height: 36px;
+	}
+	.m-stack.m-stack--desktop {
+		position: relative;
+	}
+	.m-aside-left {
+		padding-top: 14px;
+	}
+	.userinfo {
+		height: auto;
+		color: #000;
+	}
+	.userinfo h6 ,
+	.userinfo span {
+		color: #000;
+	}
+	.userinfo h6 {
+		font-size: 14px;
+	}
+	.userinfo span {
+		font-size: 11px;
+	}
+	#m_aside_left_offcanvas_toggle {
+		margin-left: 0;
+		margin-right: auto;
+		float: left;
+	}
+	.m-aside-left {
+		padding-top: 0;
+	}
+	.m-aside-menu.m-aside-menu--skin-light {
+		height: 100vh !important;
+		padding-top: 1rem;
+	}
+
+}
+/*ends max-width 1024px*/
+
+
+
+
+@media screen and (max-width:  1199px) {
+	body.isfullscreen .titleRow .titleRow_x, 
+	body.isfullscreen .titleRow .titleRow_z {
+		width: auto;
+	}	
+	body.isfullscreen .titleRow .titleRow_y {
+		order: 2;
+	}
+	body.isfullscreen .titleRow .titleRow_z {
+		flex-basis: 100%;
+		order: 3;
+		justify-content: flex-start;
+	}
+	body.isfullscreen .titleRow {
+		flex-wrap: wrap;
+	}
+	.graph_info_unit {
+		width: 164px;
+	}
+}
+/*ends max-width 1199px*/
+
+
+
+
+@media screen and (max-width:  1024px) {
+	.m-topbar .m-topbar__nav.m-nav>.m-nav__item>.m-nav__link .m-nav__link-icon>i:before {
+		-webkit-text-fill-color:  #444;
+	}
+	:fullscreen .titleRow .titleRow_x ,
+	:fullscreen .titleRow .titleRow_z ,
+	body.isfullscreen:fullscreen .titleRow .titleRow_x ,
+	body.isfullscreen:fullscreen .titleRow .titleRow_z ,
+	.titleRow .titleRow_x ,
+	.titleRow .titleRow_z  {
+		width: 50%;
+	}
+}
+/*ends max-width 1024px*/
+
+
+@media screen and (max-width:  991px) {
+	.userinfo_area {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.claim_devices_top_form {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.claim_devices_top_form .cd_form_col_one ,
+	.claim_devices_top_form .cd_form_col_two .input-group .input-group-prepend ,
+	.claim_devices_top_form .cd_form_col_two .input-group .input-group-append ,
+	.claim_devices_top_form .cd_form_col_two .input-group .form-control {
+		margin-bottom: 0.375rem;
+	}
+	.claim_devices_top_form .cd_form_col_one span {
+		display: none;
+	}
+	.claim_devices_top_form .cd_form_col_two {
+		flex-direction: column;
+	}
+	.claim_devices_top_form .cd_form_col_two .input-group-text {
+		padding: 0;
+		background-color: transparent;
+		border: none;
+	}
+	.claim_devices_top_form .cd_form_col_two .input-group .form-control {
+		width: 100%;
+	}
+}
+/*ends max-width 991px*/
+
+
+
+@media screen and (max-width:  767px) {
+	table tr th:first-child ,
+	table tr td:first-child {
+		padding-left: 0;
+	}
+
+	.connectroListTableWrap table tr th:first-child ,
+	.connectroListTableWrap table tr td:first-child {
+		padding-left: 0.75rem;
+	}
+	.addAction_mb {
+		margin-bottom: 120px;
+	}
+	.splabel {
+		display: none !important;
+	}	
+	body.isfullscreen .titleRow .titleRow_x {
+		order: 2;
+	}
+	body.isfullscreen .titleRow .titleRow_y {
+		order: 1;
+		margin-bottom: 1rem;
+	}
+	body.isfullscreen .titleRow .titleRow_z {
+		order: 3;
+	}
+	button#fs-doc-button {
+		display: none !important;
+	}
+	.titleRow .titleRow_x {
+		width: 40%;
+	}
+	.titleRow .titleRow_z {
+		width: 60%;
+		display: flex;
+		justify-content: flex-end;
+	}
+	.graph_info_unit .graph_info_unit_x {
+		display: none;
+	}
+	.graph_info_unit {
+		width: 100px;
+	}
+
+	/*settings for Full width on Mobile*/
+	body {
+		overflow-x: hidden;
+	}
+	.m-body .m-content {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.panel-has-radius {
+		border-radius: 0;
+	}
+	.m-portlet {
+		border-left: 0 !important;
+		border-right: 0 !important;
+	}
+	/*.m-content > .row:not(.isDefault) ,
+	.m-content .row:not(.isDefault) {
+		margin-left: 0;
+		margin-right: 0;
+	}*/
+	.m-content > .row  > [class^="col"] {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	/*	hiding Footer at Mobile*/
+	footer.m-footer {
+		display: none; 
+	}
+
+}
+/*ends max-width 767px*/
+
+
+
+
+@media screen and (max-width:  575px) {
+	.m-login.m-login--1 .m-login__aside {
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+	.titleRow {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.titleRow .titleRow_x ,
+	.titleRow .titleRow_y,
+	.titleRow .titleRow_z {
+		width: 100%;
+		justify-content: flex-start;
+	}
+	.titleRow .titleRow_z {
+		margin-top: 1rem;
+	}
+	.modal .modal-content .modal-body {
+		padding: 1rem;
+	}
+}
+/*ends max-width 575px*/
+
+
+@media screen and (max-width:  480px) {
+	.btn-companyselect span {
+		display: block;
+	}
+	.fig-60.sensor-icon-main {
+		min-width: 50px;
+		width: 50px;
+		height: 50px;
+	}
+	.fig-60.sensor-icon-main img ,
+	.fig-60.sensor-icon-main svg {
+		font-size: 24px;
+	}
+	.main_value_1 {
+		font-size: 18px;
+	}
+	.qrdownload figure {
+		width: 50px;
+		height: 50px;
+	}
+	.qrdownload .btn {
+		width: 50px;
+	}
+	.m-header-menu.m-header-menu-custom .btn-companyselect[data-target="#scanner_modal"] {
+		width: 46px !important;
+		height: 46px !important;
+		text-align: center;
+	}
+}
+/*ends max-width 480px*/
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,656 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+    <!-- BEGIN: Subheader -->
+    <div class="m-subheader ">
+
+        <div class="titleRow">
+            <div class="titleRow_x">
+                <h3 class="m-subheader__title subheader__title_avgscreen">
+                    Project Dashboard
+                </h3>
+                <div class="m-subheader__title_fullscreen">
+                    <h3 class="m-subheader__title ">Cartel's Dashboard</h3>
+                    <p>11:42:29 Monday, February 14 2022</p>
+                </div>
+            </div>
+            <div class="titleRow_y">
+                <img alt="" src="{{url('public/assets/demo/default/media/img/logo/logo-dark.svg')}}" class="img-fluid logo" />
+            </div>
+            <div class="titleRow_z">
+                <div class="d-flex align-items-center">
+                    <div class="btn-group m-btn-group mr-2 bg-light-grey p-2 border-radius-1" role="group" aria-label="...">
+                        <button type="button" class="btn btn-secondary btn-sm fw-400">Day</button>
+                        <button type="button" class="btn btn-secondary btn-sm fw-400">Week</button>
+                        <button type="button" class="btn btn-secondary btn-sm fw-400">Month</button>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-default" id="fs-doc-button">
+                            <span class="iconify" data-icon="fluent:full-screen-maximize-16-filled"></span>  Fullscreen
+                        </button>
+                        <button type="button" class="btn btn-default" id="fs-exit-doc-button">
+                            Exit Fullscreen
+                        </button>
+
+                        <button type="button" class="btn btn-default">
+                            <i class="la la-plus-circle"></i> Create new card
+                        </button>                                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ends titleRow -->
+
+    </div>
+
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <!--Begin::Section-->
+
+        <div class="row" id="m_sortable_portlets">
+
+            <!-- Left Col -->
+            <div class="col-lg-6">
+                <div class="m-portlet--sortable m-portlet panel-has-radius mb-4 relative hastransition has-loader-now">
+                    <div class="isloading">
+                        <span class="iconify" data-icon="eos-icons:loading"></span>
+                    </div>
+                    <div class="m-portlet__head m-portlet__head_sm p-2">
+                        <div class="c-card-caption">
+                            <figure>
+                                <span class="iconify" data-icon="carbon:temperature"></span>
+                            </figure>
+                            <figcaption>
+                                <span class="fw-500">
+                                    03/Fridge
+                                </span>
+                                <br/>
+                                <small>
+                                    Temperature Sensor
+                                </small>
+                            </figcaption>
+                        </div>
+                        <div>
+                            <!--begin: Dropdown-->
+                            <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click" aria-expanded="true">
+                                <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
+                                    <i class="la la-ellipsis-v"></i>
+                                </a>
+                                <div class="m-dropdown__wrapper">
+                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                    <div class="m-dropdown__inner">
+                                        <div class="m-dropdown__body">
+                                            <div class="m-dropdown__content">
+                                                <ul class="m-nav">
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="fluent:rename-20-regular"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Re-name Card</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="cil:list-rich"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Sensor Details</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item mt-3">
+                                                        <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm"><span class="iconify" data-icon="carbon:delete"></span> Remove Card</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Dropdown-->
+                        </div>
+                    </div>
+                    <div class="p-2 d-flex">
+                        <div class="graph_unit">
+                            <img src="{{asset('assets/demo/default/media/img/misc/graph-1.jpg')}}" alt="Graph" class="img-fluid">
+                        </div>
+                        <div class="graph_info_unit relative">
+                            <div class="graph_info_unit_x">
+                                <ul>
+                                    <li>
+                                        <label>
+                                            Max
+                                        </label>
+                                        <span>26.4</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Avg
+                                        </label>
+                                        <span>18.5</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Min
+                                        </label>
+                                        <span>14.7</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="graph_info_unit_y">
+                                <h6>
+                                    3.55°C
+                                </h6>
+                                <p class="m-0">
+                                    10 minutes ago
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-portlet--sortable m-portlet panel-has-radius mb-4 relative hastransition m-portlet-has-border border-danger">
+                    <div class="isloading d-none">
+                        <span class="iconify" data-icon="eos-icons:loading"></span>
+                    </div>
+                    <div class="m-portlet__head m-portlet__head_sm p-2">
+                        <div class="c-card-caption">
+                            <figure>
+                                <span class="iconify" data-icon="carbon:temperature"></span>
+                            </figure>
+                            <figcaption>
+                                <span class="fw-500">
+                                    03/Fridge
+                                </span>
+                                <br/>
+                                <small>
+                                    Temperature Sensor
+                                </small>
+                            </figcaption>
+                        </div>
+                        <div>
+                            <!--begin: Dropdown-->
+                            <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click" aria-expanded="true">
+                                <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
+                                    <i class="la la-ellipsis-v"></i>
+                                </a>
+                                <div class="m-dropdown__wrapper">
+                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                    <div class="m-dropdown__inner">
+                                        <div class="m-dropdown__body">
+                                            <div class="m-dropdown__content">
+                                                <ul class="m-nav">
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="fluent:rename-20-regular"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Re-name Card</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="cil:list-rich"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Sensor Details</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item mt-3">
+                                                        <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm"><span class="iconify" data-icon="carbon:delete"></span> Remove Card</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Dropdown-->
+                        </div>
+                    </div>
+                    <div class="p-2 d-flex">
+                        <div class="graph_unit">
+                            <img src="{{asset('assets/demo/default/media/img/misc/graph-1.jpg')}}" alt="Graph" class="img-fluid">
+                        </div>
+                        <div class="graph_info_unit relative">
+                            <div class="graph_info_unit_x">
+                                <ul>
+                                    <li>
+                                        <label>
+                                            Max
+                                        </label>
+                                        <span>26.4</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Avg
+                                        </label>
+                                        <span>18.5</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Min
+                                        </label>
+                                        <span>14.7</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="graph_info_unit_y">
+                                <h6>
+                                    3.55°C
+                                </h6>
+                                <p class="m-0">
+                                    10 minutes ago
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-portlet--sortable m-portlet panel-has-radius mb-4 relative hastransition m-portlet-has-border border-warning">
+                    <div class="isloading d-none">
+                        <span class="iconify" data-icon="eos-icons:loading"></span>
+                    </div>
+                    <div class="m-portlet__head m-portlet__head_sm p-2">
+                        <div class="c-card-caption">
+                            <figure>
+                                <span class="iconify" data-icon="carbon:temperature"></span>
+                            </figure>
+                            <figcaption>
+                                <span class="fw-500">
+                                    03/Fridge
+                                </span>
+                                <br/>
+                                <small>
+                                    Temperature Sensor
+                                </small>
+                            </figcaption>
+                        </div>
+                        <div>
+                            <!--begin: Dropdown-->
+                            <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click" aria-expanded="true">
+                                <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
+                                    <i class="la la-ellipsis-v"></i>
+                                </a>
+                                <div class="m-dropdown__wrapper">
+                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                    <div class="m-dropdown__inner">
+                                        <div class="m-dropdown__body">
+                                            <div class="m-dropdown__content">
+                                                <ul class="m-nav">
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="fluent:rename-20-regular"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Re-name Card</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="cil:list-rich"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Sensor Details</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item mt-3">
+                                                        <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm"><span class="iconify" data-icon="carbon:delete"></span> Remove Card</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Dropdown-->
+                        </div>
+                    </div>
+                    <div class="p-2 d-flex">
+                        <div class="graph_unit">
+                            <img src="{{asset('assets/demo/default/media/img/misc/graph-1.jpg')}}" alt="Graph" class="img-fluid">
+                        </div>
+                        <div class="graph_info_unit relative">
+                            <div class="graph_info_unit_x">
+                                <ul>
+                                    <li>
+                                        <label>
+                                            Max
+                                        </label>
+                                        <span>26.4</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Avg
+                                        </label>
+                                        <span>18.5</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Min
+                                        </label>
+                                        <span>14.7</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="graph_info_unit_y">
+                                <h6>
+                                    3.55°C
+                                </h6>
+                                <p class="m-0">
+                                    10 minutes ago
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Left Col ends -->
+
+            <!-- Right Col -->
+            <div class="col-lg-6">
+                <div class="m-portlet--sortable m-portlet panel-has-radius mb-4 relative hastransition m-portlet-has-border m-portlet-offline">
+                    <div class="isloading d-none">
+                        <span class="iconify" data-icon="eos-icons:loading"></span>
+                    </div>
+                    <div class="m-portlet__head m-portlet__head_sm p-2">
+                        <div class="c-card-caption">
+                            <figure>
+                                <span class="iconify" data-icon="carbon:temperature"></span>
+                            </figure>
+                            <figcaption>
+                                <span class="fw-500">
+                                    03/Fridge
+                                </span>
+                                <br/>
+                                <small>
+                                    ---
+                                </small>
+                            </figcaption>
+                        </div>
+                        <div>
+                            <!--begin: Dropdown-->
+                            <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click" aria-expanded="true">
+                                <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
+                                    <i class="la la-ellipsis-v"></i>
+                                </a>
+                                <div class="m-dropdown__wrapper">
+                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                    <div class="m-dropdown__inner">
+                                        <div class="m-dropdown__body">
+                                            <div class="m-dropdown__content">
+                                                <ul class="m-nav">
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="fluent:rename-20-regular"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Re-name Card</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="cil:list-rich"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Sensor Details</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item mt-3">
+                                                        <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm"><span class="iconify" data-icon="carbon:delete"></span> Remove Card</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Dropdown-->
+                        </div>
+                    </div>
+                    <div class="p-2 d-flex">
+                        <div class="graph_unit">
+                            <img src="{{asset('assets/demo/default/media/img/misc/graph-1.jpg')}}" alt="Graph" class="img-fluid">
+                        </div>
+                        <div class="graph_info_unit relative">
+                            <div class="graph_info_unit_x">
+                                <ul>
+                                    <li>
+                                        <label>
+                                            Max
+                                        </label>
+                                        <span>---</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Avg
+                                        </label>
+                                        <span>---</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Min
+                                        </label>
+                                        <span>---</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="graph_info_unit_y">
+                                <h6>
+                                    ---°C
+                                </h6>
+                                <p class="m-0">
+                                    ---
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-portlet--sortable m-portlet panel-has-radius mb-4 relative hastransition m-portlet-has-border border-success">
+                    <div class="isloading d-none">
+                        <span class="iconify" data-icon="eos-icons:loading"></span>
+                    </div>
+                    <div class="m-portlet__head m-portlet__head_sm p-2">
+                        <div class="c-card-caption">
+                            <figure>
+                                <span class="iconify" data-icon="carbon:temperature"></span>
+                            </figure>
+                            <figcaption>
+                                <span class="fw-500">
+                                    03/Fridge
+                                </span>
+                                <br/>
+                                <small>
+                                    Temperature Sensor
+                                </small>
+                            </figcaption>
+                        </div>
+                        <div>
+                            <!--begin: Dropdown-->
+                            <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click" aria-expanded="true">
+                                <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
+                                    <i class="la la-ellipsis-v"></i>
+                                </a>
+                                <div class="m-dropdown__wrapper">
+                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                    <div class="m-dropdown__inner">
+                                        <div class="m-dropdown__body">
+                                            <div class="m-dropdown__content">
+                                                <ul class="m-nav">
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="fluent:rename-20-regular"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Re-name Card</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="cil:list-rich"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Sensor Details</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item mt-3">
+                                                        <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm"><span class="iconify" data-icon="carbon:delete"></span> Remove Card</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Dropdown-->
+                        </div>
+                    </div>
+                    <div class="p-2 d-flex">
+                        <div class="graph_unit">
+                            <img src="{{asset('assets/demo/default/media/img/misc/graph-1.jpg')}}" alt="Graph" class="img-fluid">
+                        </div>
+                        <div class="graph_info_unit relative">
+                            <div class="graph_info_unit_x">
+                                <ul>
+                                    <li>
+                                        <label>
+                                            Max
+                                        </label>
+                                        <span>26.4</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Avg
+                                        </label>
+                                        <span>18.5</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Min
+                                        </label>
+                                        <span>14.7</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="graph_info_unit_y">
+                                <h6>
+                                    3.55°C
+                                </h6>
+                                <p class="m-0">
+                                    10 minutes ago
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="m-portlet--sortable m-portlet panel-has-radius mb-4 relative hastransition">
+                    <div class="isloading d-none">
+                        <span class="iconify" data-icon="eos-icons:loading"></span>
+                    </div>
+                    <div class="m-portlet__head m-portlet__head_sm p-2">
+                        <div class="c-card-caption">
+                            <figure>
+                                <span class="iconify" data-icon="carbon:temperature"></span>
+                            </figure>
+                            <figcaption>
+                                <span class="fw-500">
+                                    03/Fridge
+                                </span>
+                                <br/>
+                                <small>
+                                    Temperature Sensor
+                                </small>
+                            </figcaption>
+                        </div>
+                        <div>
+                            <!--begin: Dropdown-->
+                            <div class="m-dropdown m-dropdown--inline m-dropdown--arrow m-dropdown--align-right m-dropdown--align-push" m-dropdown-toggle="click" aria-expanded="true">
+                                <a href="#" class="m-portlet__nav-link m-dropdown__toggle btn m-btn m-btn--link">
+                                    <i class="la la-ellipsis-v"></i>
+                                </a>
+                                <div class="m-dropdown__wrapper">
+                                    <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
+                                    <div class="m-dropdown__inner">
+                                        <div class="m-dropdown__body">
+                                            <div class="m-dropdown__content">
+                                                <ul class="m-nav">
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="fluent:rename-20-regular"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Re-name Card</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item">
+                                                        <a href="" class="m-nav__link">
+                                                            <i class="m-nav__link-icon">
+                                                                <span class="iconify" data-icon="cil:list-rich"></span>
+                                                            </i>
+                                                            <span class="m-nav__link-text">Sensor Details</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-nav__item mt-3">
+                                                        <a href="#" class="btn btn-outline-danger m-btn m-btn--pill m-btn--wide btn-sm"><span class="iconify" data-icon="carbon:delete"></span> Remove Card</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end: Dropdown-->
+                        </div>
+                    </div>
+                    <div class="p-2 d-flex">
+                        <div class="graph_unit">
+                            <img src="{{asset('assets/demo/default/media/img/misc/graph-1.jpg')}}" alt="Graph" class="img-fluid">
+                        </div>
+                        <div class="graph_info_unit relative">
+                            <div class="graph_info_unit_x">
+                                <ul>
+                                    <li>
+                                        <label>
+                                            Max
+                                        </label>
+                                        <span>26.4</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Avg
+                                        </label>
+                                        <span>18.5</span>
+                                    </li>
+                                    <li>
+                                        <label>
+                                            Min
+                                        </label>
+                                        <span>14.7</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="graph_info_unit_y">
+                                <h6>
+                                    3.55°C
+                                </h6>
+                                <p class="m-0">
+                                    10 minutes ago
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Right Col ends -->
+        </div>
+        <!-- ends row -->                       
+
+    </div>
+</div>
+@endsection

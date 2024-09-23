@@ -1,0 +1,17 @@
+{
+    "name": "Recasoft Technologies",
+    "short_name": "Recasoft",
+    "start_url": "./",
+    "background_color": "#000000",
+    "description": "Recasoft Technologies",
+    "display": "fullscreen",
+    "theme_color": "#000000",
+    "icons": [
+        {
+            "src": "cloud.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

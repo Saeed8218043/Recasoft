@@ -1,0 +1,206 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Controllers\Controller;
+
+use App\Mail\RegisterUser;
+use Carbon\Carbon;
+use DB;
+use DataTables;
+use Faker\Factory as Faker;
+use Hash;
+use Cache;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Image;
+use Mail;
+use File;
+use Auth;
+use App\User;
+use App\Company;
+use App\Device;
+use App\DeviceTemperature;
+
+class CompanySettingsController extends Controller
+{
+  public function __construct()
+    {
+         // $this->middleware('CheckAdmin');
+    }
+   
+    public function index(Request $request)
+    {
+        $company_id = isset($request->company_id)?$request->company_id:'';
+        $query = "select c.*,
+                  count(IF(d.event_type='ccon',1,null)) as connTotal,
+                  count(IF(d.event_type='temperature' OR d.event_type='proximity',1,null)) as sensorTotal
+                  from companies c
+                  left join devices d on (d.company_id=c.company_id)
+                  where c.is_active=1 and c.company_id=? limit 1";
+        $company = DB::select($query,[$company_id]);
+        $company_name = isset($company[0]->name)?$company[0]->name:'';
+
+        $members = "select * from company_members where company_id=? order by id desc";
+        $members = DB::select($members,[$company_id]);
+
+        return view('company-settings.index', compact('company_id','company','company_name','members'));
+    }
+
+    public function UpdateCompanySettings(Request $request){
+        $company_id = isset($request->company_id)?$request->company_id:'';
+        $company_name = isset($request->company_name)?$request->company_name:'';
+        $email = isset($request->email)?$request->email:'';
+        $phone = isset($request->phone)?$request->phone:'';
+        $description = isset($request->description)?$request->description:'';
+        $organization_name = isset($request->organization_name)?$request->organization_name:'';
+        $organization_no = isset($request->organization_no)?$request->organization_no:'';
+
+        if($company_id!=''){
+            Company::where('company_id',$company_id)->update(array('name'=>$company_name,'email'=>$email,'phone'=>$phone,'description'=>$description,'organization_name'=>$organization_name,'organization_no'=>$organization_no));
+            // return redirect(url('company-settings/'.$company_id))->with('message','Updated Sucsessfull');
+            return back();
+        }
+    }
+
+    public function UpdateCompanyImage(Request $request){
+        $company_id = isset($request->company_id)?$request->company_id:'';
+        if($request->file('file')){
+            $file = $request->file('file');
+            $allowed = array('png', 'jpg', 'jpeg');
+            $ext = $file->getClientOriginalExtension();
+            if (!in_array(strtolower($ext), $allowed)) {
+                return response()->json(['status'=>false,'message'=>'Invalid file type']);
+                 exit();
+            }
+
+            $path = public_path("uploads/company_images");
+
+            $filename = time() . '-' . $file->getClientOriginalName();
+            $file->move($path, $filename);
+
+            $url = url('uploads/company_images/'.$filename);
+
+            DB::table('companies')->where('company_id',$company_id)->update(array('image_url'=>$filename));
+
+            return response()->json([
+                'status'=>true,
+                'message'=>'Image has been uploaded',
+                'url'=>$url
+            ]);
+        }
+    }
+
+    public function DeleteCompanyImage(Request $request){
+        $company_id = isset($request->company_id)?$request->company_id:'';
+        DB::table('companies')->where('company_id',$company_id)->update(array('image_url'=>null));
+        return back();
+    }
+
+    public function inviteMember(Request $request){
+        $company_id = isset($request->company_id)?$request->company_id:'';
+        $company = DB::table('companies')->where('company_id',$company_id)->first();
+        $company_name = isset($company->name)?$company->name:'';
+        $company_email = isset($company->email)?$company->email:'';
+        $email = isset($request->email)?$request->email:'';
+        $role = isset($request->role)?$request->role:null;
+        $url='';
+        $last_id = DB::table('company_members')->insertGetId(array('email'=>$email,'role'=>$role,'company_id'=>$company_id,'created_at'=>date('Y-m-d H:i:s', time())));
+        $data_ar = ['company_name'=>$company_name,'company_email'=>$company_email];
+        // $message = 'Invitation has been sent';
+        $member = DB::table('users')->where(['email'=>$email/*,'company_id'=>$company_id*/])->get();
+        if(isset($member) && count($member)>0){
+            $url = url('login-user/'.$company_id.'/'.$email);
+            if($url!=''){
+                $data_ar['url']=$url;
+            }
+            $subject = 'Access granted: '.$company_name;
+            $to_name = $company_name;
+            $to_email = $email;
+            Mail::send('emails.invitation-email-accepted', $data_ar, function($message) use ($to_name, $to_email, $subject, $company_email) {
+                $message->to($to_email, $to_name)
+                ->subject($subject);
+                $message->from('notification@app.recasoft.no','Recasoft Technologies');
+                $message->replyTo('notification@app.recasoft.no','Recasoft Technologies');
+            });
+            DB::table('company_members_invite')->insert(array('email'=>$email,'company_id'=>$company_id,'accepted'=>1));
+        }else{
+            $url = url('account/register/'.\Crypt::encrypt($last_id));
+            if($url!=''){
+                $data_ar['url']=$url;
+            }
+            $subject = 'Access granted: '.$company_name;
+            $to_name = $company_name;
+            $to_email = $email;
+            Mail::send('emails.invitation-email', $data_ar, function($message) use ($to_name, $to_email, $subject, $company_email) {
+                $message->to($to_email, $to_name)
+                ->subject($subject);
+                $message->from('notification@app.recasoft.no','Recasoft Technologies');
+                $message->replyTo('notification@app.recasoft.no','Recasoft Technologies');
+            });
+        }
+
+        return redirect(url('company-settings/'.$company_id))->with('message','Invitation has been sent');
+    }
+
+    public function createAccount($id){
+        $member_id = \Crypt::decrypt($id);
+        $member = DB::select("select * from company_members where id=? limit 1",[$member_id]);
+        $email = isset($member[0]->email)?$member[0]->email:'';
+        $company_id = isset($member[0]->company_id)?$member[0]->company_id:'';
+        return view('company-settings.register',compact('company_id','email'));
+    }
+
+    public function createUser(Request $request){
+        $company_id = isset($request->company_id)?$request->company_id:'';
+        $name = isset($request->name)?$request->name:'';
+        $email = isset($request->email)?$request->email:'';
+        $password = isset($request->password)?$request->password:'';
+        $confirm_password = isset($request->confirm_password)?$request->confirm_password:'';
+        $user = DB::table('company_members')->where('email',$email)->first();
+        if($user){
+            DB::table('company_members_invite')->insert(array('email'=>$email,'company_id'=>$company_id,'accepted'=>1));
+            DB::table('users')->insert(array('name'=>$name,'email'=>$email,'password'=>Hash::make($password),'created_at'=>date('Y-m-d H:i:s', time())));
+            $user = User::where('email',$email)->first();
+            Auth::login($user);
+            return redirect(url('login'));
+        }else{
+            return back();
+        }
+    }
+
+    public function loginUser($company_id,$email){
+        $member = DB::table('company_members_invite')->where(['company_id'=>$company_id,'email'=>$email])->get();
+        $email = isset($member[0]->email)?$member[0]->email:'';
+        return redirect(url('login'));
+        // $user = User::where('email',$email)->first();
+        // Auth::login($user);
+        // return redirect('dashboard/'.$company_id);
+    }
+
+    public function deleteFromCompany(Request $request){
+        $email = isset($request->email)?$request->email:'';
+        $company_id = isset($request->company_id)?$request->company_id:'';
+        DB::table('company_members')->where(['email'=>$email,'company_id'=>$company_id])->delete();
+        DB::table('company_members_invite')->where(['email'=>$email,'company_id'=>$company_id])->delete();
+        // DB::table('users')->where('email',$email)->delete();
+        return redirect(url('company-settings/'.$company_id))->with('message','Member successfully removed');
+    }
+
+    public function abc123(){
+        $data_ar=['url'=>''];
+        $to_name='Ahad';
+        $to_email = 'ahad.mashkraft@gmail.com';
+        $subject='Recasoft';
+        Mail::send('emails.reset-password', $data_ar, function($message) use ($to_name, $to_email, $subject) {
+                $message->to($to_email, $to_name)
+                ->subject($subject);
+                $message->from('notification@app.recasoft.no','Recasoft Technologies');
+                $message->replyTo('notification@app.recasoft.no','Recasoft Technologies');
+            });
+        // return view('emails.invitation-email');
+    }
+}

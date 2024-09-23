@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Company;
+use DB;
+
+class HomeController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index(Request $request)
+    {
+        $company_id = isset($request->company_id)?$request->company_id:'';
+        $company = Company::select('name')->where('company_id',$company_id)->first();
+        $company_name = isset($company->name)?$company->name:'';
+        $query = DB::select("select * from companies order by id asc limit 1");
+        $device_id = isset($query[0]->company_id)?$query[0]->company_id:'';
+        return view('dashboard', compact('company_id','company_name','device_id'));
+    }
+}
